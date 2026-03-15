@@ -4,21 +4,17 @@ import { motion } from "framer-motion";
 // import { BackgroundBeamsWithCollision } from "../../components/ui/background-beams-with-collision"; 
 
 const secretaries = [
-  "Vinay Agrahari",
-  "Mayank Nagar",
-  "Krishna Ashrai Chochipatla",
-  "Hardik Mahawar",
-  "Atharv Salodkar",
-  "Pavan Pahune",
-  "Sai Abhaya",
-  "Mauryavardhan Singh",
-  "Divyanshu ",
-  "Akankshaa Padhi"
+  "Pooja Sharma",
+  "Nitish Jindal",
+  "Akhilesh Gupta",
+  "Aritra Mukherjee",
+  "Shrutika Jadhav",
+  "Avishka Chaudhary"
 ];
 
 const Secretaries = () => {
   return (
-    <section className="relative w-full py-72 bg-gray-950 overflow-hidden">
+    <section className="relative w-full py-16 md:py-24 bg-gray-950 overflow-x-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {/* <Spotlight /> */}

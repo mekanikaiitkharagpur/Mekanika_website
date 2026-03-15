@@ -2,11 +2,20 @@
 .team-page {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  min-height: 100%;
+}
+
+.team-members-container {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .timeline-section {
   position: relative;
   width: 100%;
   margin-top: 2rem;
-  overflow: hidden;
+  overflow-x: hidden;
 }

@@ -1,42 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import './Team.css';
 import HorizontalScroll from './TeamComponent/HorizontalScroll';
 import { PastTimeline } from './TeamComponent/Timeline';
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Secretaries from './TeamComponent/Secretaries';
 
 const Team = () => {
-  const [horizontalScrollComplete, setHorizontalScrollComplete] = useState(false);
   const timelineRef = useRef(null);
-  const isInView = useInView(timelineRef, { once: false, amount: 0.1 });
-  const controls = useAnimation();
-  
-  useEffect(() => {
-    const checkScrollPosition = () => {
-      const horizontalScrollPin = document.getElementById('horizontalScrollPin');
-      
-      if (horizontalScrollPin) {
-        const pinRect = horizontalScrollPin.getBoundingClientRect();
-        const isPastHorizontalScroll = pinRect.bottom < 0;
-        
-        if (isPastHorizontalScroll) {
-          setHorizontalScrollComplete(true);
-        }
-      }
-    };
-    
-    window.addEventListener('scroll', checkScrollPosition);
-    return () => window.removeEventListener('scroll', checkScrollPosition);
-  }, []);
-  
-  useEffect(() => {
-    if (isInView && horizontalScrollComplete) {
-      controls.start("visible");
-    }
-  }, [isInView, horizontalScrollComplete, controls]);
-  
+  const isInView = useInView(timelineRef, { once: true, amount: 0.1 });
+
   const timelineVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 50
     },
@@ -46,20 +20,20 @@ const Team = () => {
       transition: {
         duration: 0.8,
         ease: "easeOut",
-        delay: 0.3 
+        delay: 0.3
       }
     }
   };
 
   return (
-    <div className="team-page overflow-hidden shadow-bottom-only shadow-yellow-400 ">
+    <div className="team-page shadow-bottom-only shadow-yellow-400 ">
       <HorizontalScroll />
       <Secretaries />
-      <motion.div 
+      <motion.div
         ref={timelineRef}
         className="timeline-section"
         initial="hidden"
-        animate={controls}
+        animate={isInView ? "visible" : "hidden"}
         variants={timelineVariants}
       >
         <PastTimeline />
