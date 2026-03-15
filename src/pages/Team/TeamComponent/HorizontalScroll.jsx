@@ -146,6 +146,29 @@ const HorizontalScroll = () => {
       backfaceVisibility: "hidden",
       WebkitBackfaceVisibility: "hidden",
     },
+    teamProfileSmall: {
+      width: "220px",
+      height: "300px",
+      borderRadius: "12px",
+    },
+    profileInfoGradientSmall: {
+      height: "100px",
+    },
+    profileInfoSmall: {
+      padding: "0.85rem",
+    },
+    profileNameSmall: {
+      fontSize: "1rem",
+    },
+    profileRoleSmall: {
+      fontSize: "0.8rem",
+    },
+    socialOverlaySmall: {
+      padding: "0.75rem",
+    },
+    socialIconSmall: {
+      padding: "0.5rem",
+    },
     profileImageContainer: {
       position: "absolute",
       width: "100%",
@@ -263,7 +286,7 @@ const HorizontalScroll = () => {
   const advisorTeam = [
     {
       name: "Sarthak Modanwal",
-      role: "General Secretary",
+      role: "",
       image: "",
       socials: {
         linkedin: "https://linkedin.com/in/",
@@ -274,7 +297,7 @@ const HorizontalScroll = () => {
     },
     {
       name: "Aman Kumar",
-      role: "General Secretary",
+      role: "",
       image: "/api/placeholder/400/500",
       socials: {
         linkedin: "https://linkedin.com/in",
@@ -285,7 +308,7 @@ const HorizontalScroll = () => {
     },
     {
       name: "Yasaswini Pakala",
-      role: "Media Head",
+      role: "",
       image: "/api/placeholder/400/500",
       socials: {
         linkedin: "https://linkedin.com/in/",
@@ -296,7 +319,7 @@ const HorizontalScroll = () => {
     },
     {
       name: "Surjya Shankar Roy",
-      role: "Events Head",
+      role: "",
       image: "/api/placeholder/400/500",
       socials: {
         linkedin: "https://linkedin.com/in/",
@@ -307,7 +330,7 @@ const HorizontalScroll = () => {
     },
     {
       name: "Monisha",
-      role: "Design Head",
+      role: "",
       image: "/api/placeholder/400/500",
       socials: {
         linkedin: "https://linkedin.com/in/",
@@ -318,7 +341,7 @@ const HorizontalScroll = () => {
     },
     {
       name: "Jeevan Kumar Korra",
-      role: "Web Head",
+      role: "",
       socials: {
         linkedin: "https://www.linkedin.com/in/jeevan-kumar-korra-068726252/",
         mail: "jeevankumarkorra2005@gmail.com",
@@ -407,6 +430,17 @@ const HorizontalScroll = () => {
         phone: "",
       },
     },
+    {
+      name: "Yayavaram Vivekadithya",
+      role: "Executive Member",
+      image: "",
+      socials: {
+        linkedin: "https://linkedin.com/in/",
+        mail: "",
+        instagram: "https://instagram.com/",
+        phone: "",
+      },
+    },
   ];
 
   const handleImageError = (e) => {
@@ -448,9 +482,16 @@ const HorizontalScroll = () => {
       });
   };
 
-  const SocialIcon = ({ type, link, showTooltip, setShowTooltip }) => {
+  const SocialIcon = ({
+    type,
+    link,
+    showTooltip,
+    setShowTooltip,
+    iconStyle,
+  }) => {
     const isContact = type === "phone" || type === "mail";
     const tooltipRef = useRef(null);
+    const style = iconStyle || styles.socialIcon;
 
     const handleClick = (e) => {
       e.preventDefault();
@@ -466,7 +507,7 @@ const HorizontalScroll = () => {
     return (
       <div
         style={{
-          ...styles.socialIcon,
+          ...style,
           position: "relative",
           transform: showTooltip && isContact ? "scale(1.1)" : "scale(1)",
         }}
@@ -519,22 +560,44 @@ const HorizontalScroll = () => {
   };
 
   // Custom team profile card with hover effect and social links
-  const TeamProfileCard = ({ name, role, image, socials }) => {
+  const TeamProfileCard = ({ name, role, image, socials, size }) => {
+    const isSmall = size === "small";
     const [isHovered, setIsHovered] = useState(false);
     const [showContactTooltip, setShowContactTooltip] = useState({
       phone: false,
       mail: false,
     });
 
+    const cardStyle = {
+      ...styles.teamProfile,
+      ...(isSmall ? styles.teamProfileSmall : {}),
+      transform: isHovered ? "translateY(-10px) scale(1.03)" : "none",
+      boxShadow: isHovered
+        ? `0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px ${themeColors.primary}30`
+        : styles.teamProfile.boxShadow,
+    };
+    const gradientStyle = isSmall
+      ? { ...styles.profileInfoGradient, ...styles.profileInfoGradientSmall }
+      : styles.profileInfoGradient;
+    const infoStyle = isSmall
+      ? { ...styles.profileInfo, ...styles.profileInfoSmall }
+      : styles.profileInfo;
+    const nameStyle = isSmall
+      ? { ...styles.profileName, ...styles.profileNameSmall }
+      : styles.profileName;
+    const roleStyle = isSmall
+      ? { ...styles.profileRole, ...styles.profileRoleSmall }
+      : styles.profileRole;
+    const overlayStyle = isSmall
+      ? { ...styles.socialOverlay, ...styles.socialOverlaySmall }
+      : styles.socialOverlay;
+    const iconStyle = isSmall
+      ? { ...styles.socialIcon, ...styles.socialIconSmall }
+      : styles.socialIcon;
+
     return (
       <div
-        style={{
-          ...styles.teamProfile,
-          transform: isHovered ? "translateY(-10px) scale(1.03)" : "none",
-          boxShadow: isHovered
-            ? `0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px ${themeColors.primary}30`
-            : styles.teamProfile.boxShadow,
-        }}
+        style={cardStyle}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
@@ -556,28 +619,31 @@ const HorizontalScroll = () => {
         </div>
 
         {/* Added gradient overlay for text */}
-        <div style={styles.profileInfoGradient}></div>
+        <div style={gradientStyle}></div>
 
-        <div style={styles.profileInfo}>
-          <h3 style={styles.profileName}>{name}</h3>
-          <p style={styles.profileRole}>{role}</p>
+        <div style={infoStyle}>
+          <h3 style={nameStyle}>{name}</h3>
+          <p style={roleStyle}>{role}</p>
         </div>
 
         <div
           style={{
-            ...styles.socialOverlay,
+            ...overlayStyle,
             opacity: isHovered ? 1 : 0,
             transform: isHovered ? "translateY(0)" : "translateY(20px)",
           }}
         >
-          <h3 style={{ ...styles.profileName, fontSize: "1.4rem" }}>{name}</h3>
-          <p style={{ ...styles.profileRole, marginBottom: "1rem" }}>{role}</p>
+          <h3 style={{ ...nameStyle, fontSize: isSmall ? "1.1rem" : "1.4rem" }}>
+            {name}
+          </h3>
+          <p style={{ ...roleStyle, marginBottom: "1rem" }}>{role}</p>
           <div style={styles.socialIcons}>
             <SocialIcon
               type="linkedin"
               link={socials.linkedin}
               showTooltip={false}
               setShowTooltip={() => {}}
+              iconStyle={iconStyle}
             />
             <SocialIcon
               type="mail"
@@ -586,12 +652,14 @@ const HorizontalScroll = () => {
               setShowTooltip={(show) =>
                 setShowContactTooltip((prev) => ({ ...prev, mail: show }))
               }
+              iconStyle={iconStyle}
             />
             <SocialIcon
               type="instagram"
               link={socials.instagram}
               showTooltip={false}
               setShowTooltip={() => {}}
+              iconStyle={iconStyle}
             />
             <SocialIcon
               type="phone"
@@ -600,6 +668,7 @@ const HorizontalScroll = () => {
               setShowTooltip={(show) =>
                 setShowContactTooltip((prev) => ({ ...prev, phone: show }))
               }
+              iconStyle={iconStyle}
             />
           </div>
         </div>
@@ -635,6 +704,7 @@ const HorizontalScroll = () => {
               role={member.role}
               image={member.image}
               socials={member.socials}
+              size="small"
             />
           ))}
         </div>
@@ -652,6 +722,7 @@ const HorizontalScroll = () => {
               role={member.role}
               image={member.image}
               socials={member.socials}
+              size="small"
             />
           ))}
         </div>
