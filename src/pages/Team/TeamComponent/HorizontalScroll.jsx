@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Instagram, Linkedin, Mail, Phone } from "lucide-react";
-import { RetroGrid } from "../../../components/magicui/RetroGrid.tsx";
-import { Spotlight } from "../../../components/ui/spotlight-new";
 
 const HorizontalScroll = () => {
   const containerRef = useRef(null);
@@ -106,19 +104,6 @@ const HorizontalScroll = () => {
       padding: "4rem 2rem 5rem",
       minHeight: "auto",
       overflowX: "hidden",
-    },
-    teamGrid: {
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      alignItems: "stretch",
-      gap: "2.5rem 3rem",
-      width: "100%",
-      maxWidth: "1200px",
-      margin: "0 auto",
-      paddingTop: "3rem",
-      paddingBottom: "1rem",
-      boxSizing: "border-box",
     },
     sectionHeading: {
       color: themeColors.primary,
@@ -683,9 +668,7 @@ const HorizontalScroll = () => {
       style={styles.container}
     >
       {/* Faculty Section */}
-      <section className="faculty-card-section" style={styles.facultySection}>
-        <Spotlight />
-        <FacultyCard
+      <section className="faculty-card-section" style={styles.facultySection}><FacultyCard
           name={facultyData.name}
           role={facultyData.role}
           image={facultyData.image}
@@ -694,36 +677,36 @@ const HorizontalScroll = () => {
 
       {/* Advisor Team */}
       <section className="team-members-section" style={styles.teamSection}>
-        <RetroGrid />
         <h1 style={styles.sectionHeading}>Advisor Team</h1>
-        <div style={styles.teamGrid}>
+        <div className="team-grid-responsive">
           {advisorTeam.map((member, index) => (
-            <TeamProfileCard
-              key={`advisor-${index}`}
-              name={member.name}
-              role={member.role}
-              image={member.image}
-              socials={member.socials}
-              size="small"
-            />
+            <div key={`advisor-${index}`} className="team-card-wrapper">
+              <TeamProfileCard
+                name={member.name}
+                role={member.role}
+                image={member.image}
+                socials={member.socials}
+                size="small"
+              />
+            </div>
           ))}
         </div>
       </section>
 
       {/* Executive Team */}
       <section className="team-members-section" style={styles.teamSection}>
-        <RetroGrid />
         <h1 style={styles.sectionHeading}>Executive Team</h1>
-        <div style={styles.teamGrid}>
+        <div className="team-grid-responsive">
           {executiveTeam.map((member, index) => (
-            <TeamProfileCard
-              key={`exec-${index}`}
-              name={member.name}
-              role={member.role}
-              image={member.image}
-              socials={member.socials}
-              size="small"
-            />
+            <div key={`exec-${index}`} className="team-card-wrapper">
+              <TeamProfileCard
+                name={member.name}
+                role={member.role}
+                image={member.image}
+                socials={member.socials}
+                size="small"
+              />
+            </div>
           ))}
         </div>
       </section>
