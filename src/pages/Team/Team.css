@@ -19,3 +19,22 @@
   margin-top: 2rem;
   overflow-x: hidden;
 }
+/* Responsive flex: cards wrap and each row (including partial last row) is centered */
+.team-grid-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem 3.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.team-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
